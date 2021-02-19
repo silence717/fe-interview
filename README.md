@@ -111,14 +111,12 @@ Null表示定义了但是为空。Null类型只有一个值，就是null，null�
    - enumerable：决定 for in 能否枚举该属性。
    
    - configurable：决定该属性能否被删除或者改变特征值。
-   
-   
-   
+
    我们通常用于定义属性的代码会产生数据属性，其中writable、enumerable、configurable 都默认为 true。我们可以使用内置函数 getOwnPropertyDescriptor 来查看。
-   
+
    如果想改变属性的特征，或者定义访问器属性，可以使用`Object.defineProperty`，这样会修改属性的`writable`和`enumerable`。
-   
-   ```javascript
+
+```javascript
    var o = { a: 1 };
    Object.defineProperty(o, "b", {value: 2, writable: false, enumerable: false, configurable: true});
    //a和b都是数据属性，但特征值变化了
@@ -128,10 +126,42 @@ Null表示定义了但是为空。Null类型只有一个值，就是null，null�
    // {value: 2, writable: false, enumerable: false, configurable: true}
    o.b = 3;
    console.log(o.b); // 2
-   ```
-   
+```
+
    实际上 JavaScript 对象的运行时是一个“属性的集合”，属性以字符串或者 Symbol 为 key，以数据属性特征值或者访问器属性特征值为 value。
-   
-   
-   
+
    对象是一个属性的索引结构（索引结构是一类常见的数据结构，我们可以把它理解为一个能够以比较快的速度用 key 来查找 value 的字典）。
+
+
+
+8.  in 和 hasOwnProperty 区别？
+   
+   in 操作符会检查属性是否在对象及其[[Property]]原型链中。
+   
+   hasOwnProperty 只会检查属性是否存在在当前对象，不会查找原型链。
+
+9. Javascript中的对象分类？
+   
+   一、宿主对象
+   
+   前端最熟悉的浏览器环境中。全局对象为window，window上有很多属性，比如document。
+   
+   二、内置对象
+   
+   - 固有对象：由标准规定，随着js运行时创建而自动创建的对象实例。
+   
+   - 原生对象：
+     
+     - 基本类型：Boolean,String.Number,Symbol,Object
+     
+     - 基础功能和数据结构：Array,Date,RegExp,Promise
+     
+     - 错误类型：Error,EvalError,RangeError
+     
+     - 二进制操作：ArrayBuffer,SharedArrayBuffer,DataView
+     
+     - 带类型的数组：Float32Array
+   
+   - 普通对象：使用{} 、object构造器或者class关键字定义类创建的对象 。
+
+
